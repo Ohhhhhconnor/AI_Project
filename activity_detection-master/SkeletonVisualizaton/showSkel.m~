@@ -3,8 +3,8 @@ function [all_joints] = show(data, data_pos, figureTitle)
 
 %figure
 %hold on
-lineLen=50;
-linewidth=2;
+%lineLen=50;
+%linewidth=2;
 for i=1:11,
     xyz = data(i,[11,12,13]);
     x=xyz(1);
