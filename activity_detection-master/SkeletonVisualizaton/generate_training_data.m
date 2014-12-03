@@ -1,14 +1,15 @@
 %% BPBJMO Generating Training Data
 clear;
 
-data_name = {'0512164333', '0512164529', '0512164800', '0512165243', '0512165327', '0512170134', '0512171207', '0512171444', '0512171649', '0512172825', '0512173312', '0512173520', '0512173548', '0512173623', '0512174513', '0512174643', '0512174930', '0512175502'};
+data_name = { '0512164529', '0512164800', '0512165243', '0512165327', '0512170134', '0512171207', '0512171444', '0512171649', '0512172825', '0512173312', '0512173520', '0512173548', '0512173623', '0512174513', '0512174643', '0512175502'};
 %% Edit this parameter to match standing / sitting in video
-video_stand_sit = {1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0};
+%% Stand = 1, Sit = 0
+video_stand_sit = {1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1};
 %% EDIT THIS LINE TO MATCH THE PATH OF YOUR DATA
 data_path = '~/AI_Project/video_data/';
 data_extention = '.txt';
 frames_per_video = 50;
-num_of_videos = 18;
+num_of_videos = length(data_name);
 num_joints = 15;
 
 
