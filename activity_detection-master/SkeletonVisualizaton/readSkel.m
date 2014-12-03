@@ -7,7 +7,7 @@ function [ all_joints ] = read( fileName, frameNum, figureTitle )
         fnum=str2num(fnum);
         found = false;
         if fnum == frameNum,
-            fprintf('found frame num %d\n', fnum);
+            %fprintf('found frame num %d\n', fnum);
             data = zeros(11,14);
             data_pos = zeros(4,4);
             for i=1:11,
