@@ -54,7 +54,7 @@ end
 %legend('joints','x','y','z');
 %hold off
 
-%fprintf('figure done..\n');
+fprintf('figure done..\n');
 
 end
 

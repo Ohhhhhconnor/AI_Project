@@ -10,7 +10,7 @@ if ~exist(dataFile,'file'),
 else
     figureTitle = strcat(dataFile, ' (frame:', int2str(frameNum),')');
     [all_joints] = readSkel(dataFile,frameNum, figureTitle);
-    %fprintf('ALL DONE.\n');
+    fprintf('ALL DONE.\n');
 end
 
 end
