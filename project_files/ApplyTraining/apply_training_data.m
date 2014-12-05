@@ -71,11 +71,16 @@ for p = 1:4
 
 	ens = fitensemble(train_group, train_ylabel(:,p), 'TotalBoost', 500, 'Tree');
 	tottestYoutput(:,p) = ens.predict(test_group);
+
+	svmStruct = svmtrain(train_group, train_ylabel(:,p), 'Kernel_Function', 'rbf', 'rbf_sigma', 1);
+	svmtestYoutput(:,p) = svmclassify(svmStruct, test_group);
 end
 
 
-Youtput(:,:) = vertcat(tottestYoutput(:,1), tottestYoutput(:,2), tottestYoutput(:,3), tottestYoutput(:,4));
+ensYoutput(:,:) = vertcat(tottestYoutput(:,1), tottestYoutput(:,2), tottestYoutput(:,3), tottestYoutput(:,4));
+svmYoutput(:,:) = vertcat(svmtestYoutput(:,1), svmtestYoutput(:,2), svmtestYoutput(:,3), svmtestYoutput(:,4));
 total_test_ylabel = vertcat(test_ylabel(:,1),test_ylabel(:,2),test_ylabel(:,3),test_ylabel(:,4));
-[c1,~,~,~] = confusion(total_test_ylabel(:,1), Youtput(:,1))
-[Cmat1] = confusionmat(total_test_ylabel(:,1), Youtput(:,1))
+
+[CmatENS] = confusionmat(total_test_ylabel(:,1), ensYoutput(:,1))
+[CmatSVM] = confusionmat(total_test_ylabel(:,1), svmYoutput(:,1))
 %plotconfusion(total_test_ylabel(:,1), Youtput(:,1))
