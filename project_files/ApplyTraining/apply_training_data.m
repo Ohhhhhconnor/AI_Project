@@ -1,6 +1,6 @@
 %% BPBJMO Apply Training Data
 %% Applying the previously generated data
-%{
+
 clear;
 data_path = '~/AI_Project/video_data/';
 data_name = 'training_data.txt';
@@ -33,7 +33,7 @@ for k = 1:joint_data_length
 		t = t+1;
 	end
 end
-%}
+
 for p = 1:4
 	for k = 1:15
 		if p == 1
@@ -92,4 +92,3 @@ total_test_ylabel = vertcat(test_ylabel(:,1),test_ylabel(:,2),test_ylabel(:,3),t
 
 [CmatENS] = confusionmat(total_test_ylabel, ensYoutput)
 [CmatSVM] = confusionmat(total_test_ylabel, svmYoutput)
-plotconfusion(total_test_ylabel, ensYoutput)
