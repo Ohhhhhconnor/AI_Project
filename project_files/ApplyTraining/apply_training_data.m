@@ -1,43 +1,81 @@
-%% BPBJMO Generating Training Data
+%% BPBJMO Apply Training Data
+%% Applying the previously generated data
 clear;
+data_path = '~/AI_Project/video_data/';
+data_name = 'training_data.txt';
+csv_data = sprintf('%s%s', data_path, data_name);
 
-data_name = { '0512164529', '0512164800', '0512165243', '0512165327', '0512170134', '0512171207', '0512171444', '0512171649', '0512172825', '0512173312', '0512173520', '0512173548', '0512173623', '0512174513', '0512174643', '0512175502'};
-%% Edit this parameter to match standing / sitting in video
-%% Stand = 1, Sit = 0
-video_stand_sit = {1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1};
-%% EDIT THIS LINE TO MATCH THE PATH OF YOUR DATA
-data_path = '~/AI_Project/video_data/raw_data/';
-data_extention = '.txt';
-frames_per_video = 50;
-num_of_videos = length(data_name);
-num_joints = 15;
+joint_data = csvread(csv_data);
+joint_data_length = length(joint_data);
 
+indecies = crossvalind('Kfold',joint_data_length,4);
+q = 1;
+r = 1;
+s = 1;
+t = 1;
 
-for j = 1:num_of_videos
-
-	video_file = sprintf('%s%s%s', data_path, data_name{j}, data_extention);
-	fprintf('%s\n',data_name{j});
-
-	for i = 1:frames_per_video
-
-		joints(i+(frames_per_video*(j-1)),:) = visualizeSkeleton(video_file,(i+frames_per_video));
-
+for k = 1:joint_data_length
+	if indecies(k) == 1
+		joint_group.one(q,:) = joint_data(k,:);
+		q = q+1;
+	end
+	if indecies(k) == 2
+		joint_group.two(r,:) = joint_data(k,:);
+		r = r+1;
+	end
+	if indecies(k) == 3
+		joint_group.three(s,:) = joint_data(k,:);
+		s = s+1;
+	end
+	if indecies(k) == 4
+		joint_group.four(t,:) = joint_data(k,:);
+		t = t+1;
 	end
 end
 
-for i = 1:frames_per_video*num_of_videos
-   	average = mean(joints(i,:));
-    	stddev = std(joints(i,:));    
-	normjoints (i,:) = (joints(i,:) - average)/stddev;
-end
+for p = 1:4
+	for k = 1:15
+		if p == 1
+			train_group(:,k) = [joint_group.two(:,k); joint_group.three(:,k); joint_group.four(:,k)];
+			test_group(:,k) = joint_group.one(:,k);
 
-for j = 1:num_of_videos
-	for i = 1:frames_per_video
-	normjoints(i+(frames_per_video*(j-1)),num_joints+1) = video_stand_sit{j};
-	%fprintf('Standing/Sitting: (%i) %i but Norm = %i\n',j, video_stand_sit{j}, normjoints(i+(frames_per_video*(j-1)),num_joints+1));
+			train_ylabel(:,p) = [joint_group.two(:,16); joint_group.three(:,16); joint_group.four(:,16)];
+			test_ylabel(:,p) = joint_group.one(:,16);
+		end
+
+		if p == 2
+			train_group(:,k) = [joint_group.one(:,k); joint_group.three(:,k); joint_group.four(:,k)];
+			test_group(:,k) = joint_group.two(:,k);
+
+			train_ylabel(:,p) = [joint_group.one(:,16); joint_group.three(:,16); joint_group.four(:,16)];
+			test_ylabel(:,p) = joint_group.two(:,16);
+		end
+
+		if p == 3
+			train_group(:,k) = [joint_group.one(:,k); joint_group.two(:,k); joint_group.four(:,k)];
+			test_group(:,k) = joint_group.three(:,k);
+
+			train_ylabel(:,p) = [joint_group.one(:,16); joint_group.two(:,16); joint_group.four(:,16)];
+			test_ylabel(:,p) = joint_group.three(:,16);
+		end
+
+		if p == 4
+			train_group(:,k) = [joint_group.one(:,k); joint_group.two(:,k); joint_group.three(:,k)];
+			test_group(:,k) = joint_group.four(:,k);
+
+			train_ylabel(:,p) = [joint_group.one(:,16); joint_group.two(:,16); joint_group.three(:,16)];
+			test_ylabel(:,p) = joint_group.four(:,16);
+		end
+		fprintf('%i:%i\n', p, k);
 	end
+
+	ens = fitensemble(train_group, train_ylabel(:,p), 'TotalBoost', 500, 'Tree');
+	tottestYoutput(:,p) = ens.predict(test_group);
 end
 
-outputFile = sprintf('%straining_data.txt', data_path);
-csvwrite(outputFile,normjoints);
 
+Youtput(:,:) = vertcat(tottestYoutput(:,1), tottestYoutput(:,2), tottestYoutput(:,3), tottestYoutput(:,4));
+total_test_ylabel = vertcat(test_ylabel(:,1),test_ylabel(:,2),test_ylabel(:,3),test_ylabel(:,4));
+[c1,~,~,~] = confusion(total_test_ylabel(:,1), Youtput(:,1))
+[Cmat1] = confusionmat(total_test_ylabel(:,1), Youtput(:,1))
+%plotconfusion(total_test_ylabel(:,1), Youtput(:,1))
