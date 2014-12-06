@@ -1,4 +1,4 @@
-function [all_joints] = visualizeSkeleton( dataFile, frameNum );
+function [xpos, ypos, zpos] = visualizeSkeleton( dataFile, frameNum );
 
 %fprintf('visualize skeleton!!\n');
 
@@ -9,7 +9,7 @@ if ~exist(dataFile,'file'),
     error('FILE DOES NOT EXIST! CHECK FILE PATH AND FILE NAME!'); 
 else
     figureTitle = strcat(dataFile, ' (frame:', int2str(frameNum),')');
-    [all_joints] = readSkel(dataFile,frameNum, figureTitle);
+    [xpos, ypos, zpos] = readSkel(dataFile,frameNum, figureTitle);
     %fprintf('ALL DONE.\n');
 end
 

@@ -5,6 +5,8 @@ clear;
 data_path = '~/AI_Project/video_data/';
 data_name = 'training_data.txt';
 csv_data = sprintf('%s%s', data_path, data_name);
+fitEnsTime = 0;
+svmTime = 0;
 
 joint_data = csvread(csv_data);
 joint_data_length = length(joint_data);
@@ -69,13 +71,14 @@ for p = 1:4
 		end
 		
 	end
-
+tic;
 	ens = fitensemble(train_group, train_ylabel(:,p), 'TotalBoost', 500, 'Tree');
 	tottestYoutput(:,p) = ens.predict(test_group);
-
+fitEnsTime = fitEnsTime + toc;
+tic;
 	svmStruct = svmtrain(train_group, train_ylabel(:,p), 'Kernel_Function', 'rbf', 'rbf_sigma', 1);
 	svmtestYoutput(:,p) = svmclassify(svmStruct, test_group);
-
+svmTime = svmTime + toc;
 	%{
 	trans_train_group = transpose(train_group);
 	trans_train_ylabel = transpose(train_ylabel);
@@ -95,3 +98,6 @@ total_test_ylabel = vertcat(test_ylabel(:,1),test_ylabel(:,2),test_ylabel(:,3),t
 
 [cENS] = confusionmat(total_test_ylabel, ensYoutput)
 [cSVM] = confusionmat(total_test_ylabel, svmYoutput)
+fprintf('ENS Elapsed Time: %ds\n',fitEnsTime);
+fprintf('SVM Elapsed Time: %ds\n',svmTime);
+

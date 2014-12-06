@@ -1,4 +1,4 @@
-function [ all_joints ] = read( fileName, frameNum, figureTitle )
+function [xpos, ypos, zpos] = read( fileName, frameNum, figureTitle )
     fid = fopen(fileName);
     tline = num2str(fgetl(fid));
     found = false;
@@ -29,7 +29,7 @@ function [ all_joints ] = read( fileName, frameNum, figureTitle )
                 error('ERROR! more data exist... parsing error..');
             end
 
-            all_joints = showSkel(data, data_pos, figureTitle);
+            [xpos, ypos, zpos] = showSkel(data, data_pos, figureTitle);
             found = true;
         end
 

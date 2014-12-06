@@ -1,4 +1,4 @@
-function [all_joints] = show(data, data_pos, figureTitle)
+function [xpos, ypos, zpos] = show(data, data_pos, figureTitle)
 % actual visualization
 
 %figure
@@ -33,7 +33,9 @@ for i=1:11,
     zd = vect(3);
     %line([x,xd],[y,yd],[z,zd],'Color','b', 'LineWidth',linewidth);
     
-    all_joints(i) = y;
+    xpos(i) = x;
+	ypos(i) = y;
+	zpos(i) = z;
 end
 
 for i=1:4,
@@ -42,7 +44,9 @@ for i=1:4,
     y=xyz(2);
     z=xyz(3);
     
-    all_joints(i+11) = y;
+    xpos(i+11) = x;
+	ypos(i+11) = y;
+	zpos(i+11) = z;
     
     %plot3(x,y,z,'B.','MarkerSize',15); 
 end
