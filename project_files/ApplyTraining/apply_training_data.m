@@ -5,16 +5,33 @@ clear;
 data_path = '~/AI_Project/video_data/';
 data_name = 'training_data.txt';
 csv_data = sprintf('%s%s', data_path, data_name);
+frames_per_video = 80;
 fitEnsTime = 0;
 svmTime = 0;
 bayesTime = 0;
+test_two_videos = 0;
+test_videos = [3,4];
+true_video = test_videos(1);
+false_video = test_videos(2);
 
 xyz_data = csvread(csv_data);
-joint_data_length = length(xyz_data);
 
-for a = 1:4
-class_values = generate_classification_array(a);
-joint_data = horzcat(xyz_data(:,:), class_values(:,1));
+if test_two_videos
+	data_subset = vertcat(xyz_data(frames_per_video*(true_video - 1)+1:frames_per_video*(true_video-1)+frames_per_video,:),xyz_data(frames_per_video*(false_video-1)+1:frames_per_video*false_video+frames_per_video,:));
+joint_data_length = length(data_subset);
+sets = 2;
+else
+joint_data_length = length(xyz_data);
+sets = 16;
+end
+for a = 1:sets
+if test_two_videos
+	class_values = compare_two_classifications(true_video, false_video);
+	joint_data = horzcat(data_subset(:,:), class_values(:,1));
+else
+	class_values = generate_classification_array(a);
+	joint_data = horzcat(xyz_data(:,:), class_values(:,1));
+end 
 
 indecies = crossvalind('Kfold',joint_data_length,4);
 q = 1;
