@@ -12,7 +12,7 @@ bayesTime = 0;
 xyz_data = csvread(csv_data);
 joint_data_length = length(xyz_data);
 
-for a = 1:16
+for a = 1:4
 class_values = generate_classification_array(a);
 joint_data = horzcat(xyz_data(:,:), class_values(:,1));
 

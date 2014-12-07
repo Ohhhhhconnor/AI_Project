@@ -1,6 +1,6 @@
 function [joint_class] = generate_classification_array(file_number);
 %% Applying the previously generated data
-data_name = { '0512164529', '0512164800', '0512165243', '0512165327'};
+data_name = { '0512164529', '0512164800', '0512165243', '0512165327'}
 % '0512170134', '0512171207', '0512171444', '0512171649', '0512172825', '0512173312', '0512173520', '0512173548', '0512173623', '0512174513', '0512174643', '0512175502'};
 data_path = '~/AI_Project/video_data/';
 data_extention = '.txt';
