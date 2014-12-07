@@ -7,7 +7,7 @@ data_name = { '0512164529', '0512164800', '0512165243', '0512165327', '051217013
 %% EDIT THIS LINE TO MATCH THE PATH OF YOUR DATA
 data_path = '~/AI_Project/video_data/';
 data_extention = '.txt';
-frames_per_video = 50;
+frames_per_video = 10;
 num_of_videos = length(data_name);
 num_joints = 15;
 
