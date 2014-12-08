@@ -10,7 +10,7 @@ fitEnsTime = 0;
 svmTime = 0;
 bayesTime = 0;
 test_two_videos = 0;
-test_videos = [3,4];
+test_videos = [2,3];
 true_video = test_videos(1);
 false_video = test_videos(2);
 
