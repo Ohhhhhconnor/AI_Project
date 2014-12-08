@@ -1,4 +1,3 @@
-Person 1:
 0512172825,still,
 0512171649,talking on the phone,
 0512175502,writing on whiteboard,

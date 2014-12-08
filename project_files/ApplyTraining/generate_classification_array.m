@@ -13,17 +13,17 @@ class_value(file_number+(num_of_videos/4)*2) = 1;
 class_value(file_number+(num_of_videos/4)*3) = 1;
 
 for k = 1:4
-	if (file_number == 7) | (file_number == 8)
+	if (file_number == 6) | (file_number == 7)
+		class_value(6+(num_of_videos/4)*(k-1)) = 1;
 		class_value(7+(num_of_videos/4)*(k-1)) = 1;
-		class_value(8+(num_of_videos/4)*(k-1)) = 1;
-		fprintf('File Number is 7 or 8\n');
+		%fprintf('File Number is 6 or 7\n');
 	end
 
-	if (file_number == 13) | (file_number == 14) | (file_number == 15)
+	if (file_number == 12) | (file_number == 13) | (file_number == 14)
+		class_value(12+(num_of_videos/4)*(k-1)) = 1;
 		class_value(13+(num_of_videos/4)*(k-1)) = 1;
 		class_value(14+(num_of_videos/4)*(k-1)) = 1;
-		class_value(15+(num_of_videos/4)*(k-1)) = 1;
-		fprintf('File Number is 13, 14 or 15\n');
+		%fprintf('File Number is 12, 13 or 14\n');
 	end
 end
 

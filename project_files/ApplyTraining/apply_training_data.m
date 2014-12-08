@@ -26,6 +26,7 @@ joint_data_length = length(xyz_data);
 sets = 15;
 end
 for a = 1:sets
+fprintf('\n***********************************\nStarted Classification: %i\n', a);
 if test_two_videos
 	class_values = compare_two_classifications(true_video, false_video);
 	joint_data = horzcat(data_subset(:,:), class_values(:,1));
@@ -115,16 +116,8 @@ tic;
 	BayesMDL = fitNaiveBayes(train_group, train_label(:,p));
 	bayestestOutput(:,p) = BayesMDL.predict(test_group);
 bayesTime = bayesTime + toc;
-	%{
-	trans_train_group = transpose(train_group);
-	trans_train_ylabel = transpose(train_ylabel);
-	
-	net = feedforwardnet(10);
-	net = train(net, trans_train_group, trans_train_ylabel(p,:));
-	nettestYoutput(p,:) = net(trans_train_group);
-	perf(p) = perform(net, trans_train_group, trans_train_ylabel(p,:));
-%}
-	fprintf('Finished Group: %i\n', p);
+
+	%fprintf('Finished Group: %i\n', p);
 end
 
 bayesOutput = vertcat(bayestestOutput(:,1),bayestestOutput(:,2),bayestestOutput(:,3), bayestestOutput(:,4));

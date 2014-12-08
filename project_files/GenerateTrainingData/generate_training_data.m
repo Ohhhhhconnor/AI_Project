@@ -15,7 +15,7 @@ num_joints = 15;
 for j = 1:num_of_videos
 
 	video_file = sprintf('%s%s%s', data_path, data_name{j}, data_extention);
-	fprintf('%s\n',data_name{j});
+	%fprintf('%s\n',data_name{j});
 
 	for i = 1:frames_per_video
 
