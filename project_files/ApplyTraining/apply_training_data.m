@@ -100,24 +100,22 @@ for p = 1:4
 		
 	end
 
-%tic;
-%	ens = fitensemble(train_group, train_ylabel(:,p), 'TotalBoost', 10, 'Tree');
-%	tottestYoutput(:,p) = ens.predict(test_group);
-%fitEnsTime = fitEnsTime + toc;
 tic;
 	svmStruct = svmtrain(train_group, train_label(:,p), 'Kernel_Function', 'rbf', 'rbf_sigma', 1);
 	svmtestOutput(:,p) = svmclassify(svmStruct, test_group);
 svmTime = svmTime + toc;
-tic;
-	dtcTree = fitctree(train_group, train_label(:,p));
-	dtctestOutput(:,p) = dtcTree.predict(test_group);
-dtcTime = dtcTime + toc;
+
 tic;
 	BayesMDL = fitNaiveBayes(train_group, train_label(:,p));
 	bayestestOutput(:,p) = BayesMDL.predict(test_group);
 bayesTime = bayesTime + toc;
 
-	%fprintf('Finished Group: %i\n', p);
+tic;
+	dtcTree = fitctree(train_group, train_label(:,p));
+	dtctestOutput(:,p) = dtcTree.predict(test_group);
+dtcTime = dtcTime + toc;
+	view(dtcTree);
+
 end
 
 bayesOutput = vertcat(bayestestOutput(:,1),bayestestOutput(:,2),bayestestOutput(:,3), bayestestOutput(:,4));
@@ -128,8 +126,19 @@ svmOutput = vertcat(svmtestOutput(:,1), svmtestOutput(:,2), svmtestOutput(:,3), 
 total_test_label = vertcat(test_label(:,1),test_label(:,2),test_label(:,3),test_label(:,4));
 
 [cSVM] = confusionmat(total_test_label, svmOutput)
+precisionSVM = 100*(cSVM(2,2)/(cSVM(1,2) + cSVM(2,2)))
+accuracySVM = 100*((cSVM(1,1) + cSVM(2,2))/(cSVM(1,1) + cSVM(1,2) + cSVM(2,1) + cSVM(2,2)))
+recallSVM = 100*(cSVM(2,2)/(cSVM(2,1) + cSVM(2,2))) 
+
 [cBAY] = confusionmat(total_test_label, bayesOutput)
+precisionBAY = 100*(cBAY(1,1)/(cBAY(1,1) + cBAY(1,2)))
+accuracyBAY = 100*((cBAY(1,1) + cBAY(2,2))/(cBAY(1,1) + cBAY(1,2) + cBAY(2,1) + cBAY(2,2)))
+recallBAY = 100*(cBAY(2,2)/(cBAY(2,1) + cBAY(2,2)))
+
 [cDTC] = confusionmat(total_test_label, dtcOutput)
+precisionBAY = 100*(cDTC(1,1)/(cDTC(1,1) + cDTC(1,2)))
+accuracyBAY = 100*((cDTC(1,1) + cDTC(2,2))/(cDTC(1,1) + cBAY(1,2) + cDTC(2,1) + cDTC(2,2)))
+recallBAY = 100*(cDTC(2,2)/(cDTC(2,1) + cDTC(2,2)))
 
 fprintf('SVM Elapsed Time: %dms\n',svmTime);
 fprintf('Bayes Elapsed Time: %dms\n',bayesTime);

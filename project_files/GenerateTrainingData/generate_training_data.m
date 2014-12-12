@@ -8,14 +8,14 @@ data_name = { '0512172825', '0512171649', '0512175502', '0512173312', '051216480
 %% EDIT THIS LINE TO MATCH THE PATH OF YOUR DATA
 data_path = '~/AI_Project/video_data/';
 data_extention = '.txt';
-frames_per_video = 20;
+frames_per_video = 32;
 num_of_videos = length(data_name);
 num_joints = 15;
 
 for j = 1:num_of_videos
 
 	video_file = sprintf('%s%s%s', data_path, data_name{j}, data_extention);
-	%fprintf('%s\n',data_name{j});
+	fprintf('%s\n',data_name{j});
 
 	for i = 1:frames_per_video
 
