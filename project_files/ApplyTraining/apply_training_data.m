@@ -114,7 +114,9 @@ tic;
 	dtcTree = fitctree(train_group, train_label(:,p));
 	dtctestOutput(:,p) = dtcTree.predict(test_group);
 dtcTime = dtcTime + toc;
-	view(dtcTree);
+if(a == 9)
+	%view(dtcTree, 'Mode', 'graph');
+end
 
 end
 
