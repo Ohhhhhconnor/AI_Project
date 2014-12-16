@@ -14,7 +14,7 @@ Included in this folder is the CSV files needed to generate the joint skeleton, 
 ## Usage Notes
 1. Download the project zip files from the github page: https://github.com/Ohhhhhconnor/AI_Project
 2. In MATLAB, add the project files to the path. 
-3. To generate our current results, run the apply_training_data.m script in MATLAB.If you would like to edit the number of frames in the training data, the variable frames_per_video should be edited in the files apply_training_data.m, generate_training_data.m and generate_classification_array.m. Then, proceed to step 4.
+3. To generate our current results, run the apply_training_data.m script in MATLAB. If you would like to edit the number of frames in the training data, the variable frames_per_video should be edited in the files apply_training_data.m, generate_training_data.m and generate_classification_array.m. Then, proceed to step 4.
 4. To use more frames, after updating the frames_per_video variable, run the generate_training_data.m script and allow it to finish. The generated file will be indicated at the end of the script (the path can be edited at the end of generate_training_data.m).
 5. Run apply_training_data.m to generate the new results. 
 
