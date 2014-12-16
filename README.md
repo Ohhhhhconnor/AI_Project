@@ -1,7 +1,7 @@
 # Activity Recognition for Automatic Music Selection
 2014 RIT Department of Electrical and Microelectronic Engineering
 
-Artificial Intelligence project - Conducted by Jordan O'Connor and Bryan Beatrez for AI Explorations (EEEE54701.2141) at the Rochester Institute of Technology.
+Artificial Intelligence project - Conducted by Jordan O'Connor (jmo3837@rit.edu) and Bryan Beatrez (bpb4868@rit.edu) for AI Explorations (EEEE54701.2141) at the Rochester Institute of Technology.
 
 Much of this code is adopted from the Cornell Robot Learning Lab. Computer Science Department, Cornell University. http://pr.cs.cornell.edu/humanactivities/index.php. The specific data used is Person 1 - 4 from the CAD-60 dataset.
 
