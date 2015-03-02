@@ -5,6 +5,13 @@ Artificial Intelligence project - Conducted by Jordan O'Connor (jmo3837@rit.edu)
 
 Much of this code is adopted from the Cornell Robot Learning Lab. Computer Science Department, Cornell University. http://pr.cs.cornell.edu/humanactivities/index.php. The specific data used is Person 1 - 4 from the CAD-60 dataset.
 
+##The Big Picture
+This project is an idea to combine two very well established AI topics, motion classification and music classification, and combine them to create an system that selects a genre/playlist based on the mood classification of the environment surrounding it. 
+
+The big picture would be this: Design an app for the XBox One, which is useful because it already has the imaging tools and music database, that would analyze a room for the user and play music based on what it sees and other parameters (like time of day, day of the week, weather outside). As you would think, a different playlist would be selected at a Friday night college party versus a quiet and rainy tuesday morning while you are reading a book (or surfing the web). 
+
+The work completed for this project focused more on the classifaction of movement in a environment. 
+
 ## Included Files
 ### Project Files
 Included in this folder is code to generate our classified training data, apply our algorithms and calculate our results. https://github.com/Ohhhhhconnor/AI_Project/tree/master/project_files
